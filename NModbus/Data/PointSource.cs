@@ -27,7 +27,7 @@ namespace NModbus.Data
             _points = new Lazy<T[]>(() => new T[ushort.MaxValue]);
         }
 
-        public T[] ReadPoints(ushort startAddress, ushort numberOfPoints)
+        public T[] ReadPoints(ushort startAddress, ushort numberOfPoints, ushort FunctionCode)
         {
             lock (_syncRoot)
             {
@@ -37,10 +37,10 @@ namespace NModbus.Data
             }
         }
 
-        T[] IPointSource<T>.ReadPoints(ushort startAddress, ushort numberOfPoints)
+        T[] IPointSource<T>.ReadPoints(ushort startAddress, ushort numberOfPoints, ushort FunctionCode)
         {
-            BeforeRead?.Invoke(this, new PointEventArgs(startAddress, numberOfPoints));
-            return ReadPoints(startAddress, numberOfPoints);
+            BeforeRead?.Invoke(this, new PointEventArgs(startAddress, numberOfPoints, FunctionCode));
+            return ReadPoints(startAddress, numberOfPoints,  FunctionCode);
         }
 
         public void WritePoints(ushort startAddress, T[] points)
@@ -54,11 +54,11 @@ namespace NModbus.Data
             }
         }
 
-        void IPointSource<T>.WritePoints(ushort startAddress, T[] points)
+        void IPointSource<T>.WritePoints(ushort startAddress, T[] points, ushort FunctionCode)
         {
-            BeforeWrite?.Invoke(this, new PointEventArgs<T>(startAddress, points));
+            BeforeWrite?.Invoke(this, new PointEventArgs<T>(startAddress, points, FunctionCode));
             WritePoints(startAddress, points);
-            AfterWrite?.Invoke(this, new PointEventArgs(startAddress, (ushort)points.Length));
+            AfterWrite?.Invoke(this, new PointEventArgs(startAddress, (ushort)points.Length, FunctionCode));
         }
     }
 }

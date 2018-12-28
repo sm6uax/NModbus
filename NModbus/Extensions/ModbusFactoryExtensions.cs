@@ -5,7 +5,7 @@
 
     internal static class ModbusFactoryExtensions
     {
-        private const int MinRequestFrameLength = 3;
+        private const int MinRequestFrameLength = 2; //YWP
 
         public static IModbusMessage CreateModbusRequest(this IModbusFactory factory, byte[] frame)
         {

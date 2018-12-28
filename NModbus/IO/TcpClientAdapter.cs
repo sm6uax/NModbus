@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using NModbus.Unme.Common;
@@ -43,7 +44,10 @@ namespace NModbus.IO
         {
             return _tcpClient.GetStream().Read(buffer, offset, size);
         }
-
+        public string GetClientIP()
+        {
+            return  ((IPEndPoint)_tcpClient.Client.RemoteEndPoint).Address.ToString();
+        }
         public void DiscardInBuffer()
         {
             _tcpClient.GetStream().Flush();

@@ -12,14 +12,17 @@ namespace NModbus.Device
 
         private ushort _startAddress;
 
-        public PointEventArgs(ushort startAddress, ushort numberOfPoints)
+        private ushort _functionCode;
+
+        public PointEventArgs(ushort startAddress, ushort numberOfPoints, ushort FunctionCode)
         {
             _startAddress = startAddress;
             _numberOfPoints = numberOfPoints;
+            _functionCode = FunctionCode;
         }
 
         public ushort NumberOfPoints => _numberOfPoints;
-
+        public ushort FunctionCode => _functionCode;
         public ushort StartAddress => _startAddress;
     }
 }

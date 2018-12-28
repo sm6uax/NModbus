@@ -11,14 +11,16 @@
         /// </summary>
         /// <param name="startAddress"></param>
         /// <param name="numberOfPoints"></param>
+        /// <param name="functionCode"></param>
         /// <returns></returns>
-        TPoint[] ReadPoints(ushort startAddress, ushort numberOfPoints);
+        TPoint[] ReadPoints(ushort startAddress, ushort numberOfPoints,ushort functionCode);
 
         /// <summary>
         /// Write a series of points.
         /// </summary>
         /// <param name="startAddress"></param>
         /// <param name="points"></param>
-        void WritePoints(ushort startAddress, TPoint[] points);
+        /// <param name="functionCode"></param>
+        void WritePoints(ushort startAddress, TPoint[] points, ushort functionCode);
     }
 }

@@ -25,6 +25,8 @@
 
         public const byte WriteMultipleRegisters = 16;
 
+        //public const byte ReportSlaveID = 17; //YWP
+
         public const byte ReadWriteMultipleRegisters = 23;
     }
 }

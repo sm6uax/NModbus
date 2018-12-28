@@ -31,7 +31,7 @@ namespace NModbus.Device.MessageHandlers
                 .Take(request.NumberOfPoints)
                 .ToArray();
 
-            dataStore.CoilDiscretes.WritePoints(request.StartAddress, points);
+            dataStore.CoilDiscretes.WritePoints(request.StartAddress, points, request.FunctionCode);
 
             return new WriteMultipleCoilsResponse(
                request.SlaveAddress,

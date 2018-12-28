@@ -32,10 +32,10 @@ namespace NModbus.Device.MessageHandlers
             ushort[] pointsToWrite = request.WriteRequest.Data
                 .ToArray();
 
-            dataStore.HoldingRegisters.WritePoints(request.ReadRequest.StartAddress, pointsToWrite);
+            dataStore.HoldingRegisters.WritePoints(request.ReadRequest.StartAddress, pointsToWrite, request.FunctionCode);
 
             ushort[] readPoints = dataStore.HoldingRegisters.ReadPoints(request.ReadRequest.StartAddress,
-                request.ReadRequest.NumberOfPoints);
+                request.ReadRequest.NumberOfPoints,request.FunctionCode);
 
             RegisterCollection data = new RegisterCollection(readPoints);
 

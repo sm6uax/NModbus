@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using NModbus.Unme.Common;
@@ -136,7 +137,10 @@ namespace NModbus.IO
 
             _udpClient.Client.Send(buffer.Skip(offset).Take(count).ToArray());
         }
-
+        public string GetClientIP()
+        {
+            return ((IPEndPoint)_udpClient.Client.RemoteEndPoint).Address.ToString();
+        }
         public void Dispose()
         {
             Dispose(true);

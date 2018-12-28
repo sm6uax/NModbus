@@ -64,7 +64,7 @@ namespace NModbus.IO
 
                 numBytesRead += bRead;
             }
-
+            string test = streamResource.GetClientIP();
             logger.Debug($"PDU: {frameLength}");
             var frame = mbapHeader.Concat(messageFrame).ToArray();
             logger.Debug($"RX: {string.Join(", ", frame)}");
