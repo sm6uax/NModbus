@@ -20,19 +20,22 @@ namespace NModbus.Message
             ushort startReadAddress,
             ushort numberOfPointsToRead,
             ushort startWriteAddress,
-            RegisterCollection writeData)
-            : base(slaveAddress, ModbusFunctionCodes.ReadWriteMultipleRegisters)
+            RegisterCollection writeData,
+            string clientIdentifier)
+            : base(slaveAddress, ModbusFunctionCodes.ReadWriteMultipleRegisters, clientIdentifier)
         {
             _readRequest = new ReadHoldingInputRegistersRequest(
                 ModbusFunctionCodes.ReadHoldingRegisters,
                 slaveAddress,
                 startReadAddress,
-                numberOfPointsToRead);
+                numberOfPointsToRead, 
+                clientIdentifier);
 
             _writeRequest = new WriteMultipleRegistersRequest(
                 slaveAddress,
                 startWriteAddress,
-                writeData);
+                writeData,
+                clientIdentifier);
 
             // TODO: ugly hack for all ModbusSerialTransport-inheritances (ModbusIpTransport would not need this, as it implements complete different BuildMessageFrame)
 
@@ -109,6 +112,7 @@ namespace NModbus.Message
 
             _readRequest = ModbusMessageFactory.CreateModbusMessage<ReadHoldingInputRegistersRequest>(readFrame);
             _writeRequest = ModbusMessageFactory.CreateModbusMessage<WriteMultipleRegistersRequest>(writeFrame);
+
         }
     }
 }

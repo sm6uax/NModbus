@@ -73,12 +73,13 @@ namespace NModbus
         ///     The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual
         ///     information about the source or destination.
         /// </param>
+        /// <param name="clientIdentifier"></param>
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">
         ///     The class name is null or
         ///     <see cref="P:System.Exception.HResult"></see> is zero (0).
         /// </exception>
         /// <exception cref="T:System.ArgumentNullException">The info parameter is null. </exception>
-        protected SlaveException(SerializationInfo info, StreamingContext context)
+        protected SlaveException(SerializationInfo info, StreamingContext context,string clientIdentifier)
             : base(info, context)
         {
             if (info != null)
@@ -86,7 +87,8 @@ namespace NModbus
                 _slaveExceptionResponse = new SlaveExceptionResponse(
                     info.GetByte(SlaveAddressPropertyName),
                     info.GetByte(FunctionCodePropertyName),
-                    info.GetByte(SlaveExceptionCodePropertyName));
+                    info.GetByte(SlaveExceptionCodePropertyName),
+                    clientIdentifier);
             }
         }
 #endif

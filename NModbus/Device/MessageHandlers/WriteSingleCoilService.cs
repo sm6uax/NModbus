@@ -31,7 +31,7 @@ namespace NModbus.Device.MessageHandlers
                 request.Data[0] == Modbus.CoilOn
             };
 
-             dataStore.CoilDiscretes.WritePoints(request.StartAddress, values, request.FunctionCode);
+             dataStore.CoilDiscretes.WritePoints(request.StartAddress, values, request.FunctionCode, request.ClientIdentifier);
 
             return request;
         }

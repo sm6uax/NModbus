@@ -11,8 +11,8 @@ namespace NModbus.Message
         {
         }
 
-        public ReadHoldingInputRegistersResponse(byte functionCode, byte slaveAddress, RegisterCollection data)
-            : base(slaveAddress, functionCode)
+        public ReadHoldingInputRegistersResponse(byte functionCode, byte slaveAddress, RegisterCollection data,string clientIdentifier)
+            : base(slaveAddress, functionCode,clientIdentifier)
         {
             if (data == null)
             {

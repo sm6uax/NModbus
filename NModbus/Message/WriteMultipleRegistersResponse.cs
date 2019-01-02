@@ -9,8 +9,8 @@ namespace NModbus.Message
         {
         }
 
-        public WriteMultipleRegistersResponse(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
-            : base(slaveAddress, ModbusFunctionCodes.WriteMultipleRegisters)
+        public WriteMultipleRegistersResponse(byte slaveAddress, ushort startAddress, ushort numberOfPoints, string clientIdentifier)
+            : base(slaveAddress, ModbusFunctionCodes.WriteMultipleRegisters, clientIdentifier)
         {
             StartAddress = startAddress;
             NumberOfPoints = numberOfPoints;

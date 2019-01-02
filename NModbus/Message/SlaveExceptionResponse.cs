@@ -12,8 +12,8 @@ namespace NModbus.Message
         {
         }
 
-        public SlaveExceptionResponse(byte slaveAddress, byte functionCode, byte exceptionCode)
-            : base(slaveAddress, functionCode)
+        public SlaveExceptionResponse(byte slaveAddress, byte functionCode, byte exceptionCode, string clientIdentifier)
+            : base(slaveAddress, functionCode, clientIdentifier)
         {
             SlaveExceptionCode = exceptionCode;
         }

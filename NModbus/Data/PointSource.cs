@@ -37,9 +37,9 @@ namespace NModbus.Data
             }
         }
 
-        T[] IPointSource<T>.ReadPoints(ushort startAddress, ushort numberOfPoints, ushort FunctionCode)
+        T[] IPointSource<T>.ReadPoints(ushort startAddress, ushort numberOfPoints, ushort FunctionCode,string clientIdentifier )
         {
-            BeforeRead?.Invoke(this, new PointEventArgs(startAddress, numberOfPoints, FunctionCode));
+            BeforeRead?.Invoke(this, new PointEventArgs(startAddress, numberOfPoints, FunctionCode,clientIdentifier));
             return ReadPoints(startAddress, numberOfPoints,  FunctionCode);
         }
 
@@ -54,11 +54,11 @@ namespace NModbus.Data
             }
         }
 
-        void IPointSource<T>.WritePoints(ushort startAddress, T[] points, ushort FunctionCode)
+        void IPointSource<T>.WritePoints(ushort startAddress, T[] points, ushort FunctionCode, string clientIdentifier)
         {
-            BeforeWrite?.Invoke(this, new PointEventArgs<T>(startAddress, points, FunctionCode));
+            BeforeWrite?.Invoke(this, new PointEventArgs<T>(startAddress, points, FunctionCode, clientIdentifier));
             WritePoints(startAddress, points);
-            AfterWrite?.Invoke(this, new PointEventArgs(startAddress, (ushort)points.Length, FunctionCode));
+            AfterWrite?.Invoke(this, new PointEventArgs(startAddress, (ushort)points.Length, FunctionCode, clientIdentifier));
         }
     }
 }

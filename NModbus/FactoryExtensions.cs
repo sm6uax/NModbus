@@ -1,4 +1,5 @@
-﻿using NModbus.Device;
+﻿using System;
+using NModbus.Device;
 using NModbus.IO;
 
 namespace NModbus
@@ -13,10 +14,11 @@ namespace NModbus
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="streamResource"></param>
+        /// <param name="operationCb"></param>
         /// <returns></returns>
-        public static IModbusSerialMaster CreateRtuMaster(this IModbusFactory factory, IStreamResource streamResource)
+        public static IModbusSerialMaster CreateRtuMaster(this IModbusFactory factory, IStreamResource streamResource, Action<string> operationCb)
         {
-            IModbusRtuTransport transport = factory.CreateRtuTransport(streamResource);
+            IModbusRtuTransport transport = factory.CreateRtuTransport(streamResource, operationCb);
 
             return new ModbusSerialMaster(transport);
         }
@@ -26,10 +28,11 @@ namespace NModbus
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="streamResource"></param>
+        /// <param name="operationCb"></param>
         /// <returns></returns>
-        public static IModbusSerialMaster CreateAsciiMaster(this IModbusFactory factory, IStreamResource streamResource)
+        public static IModbusSerialMaster CreateAsciiMaster(this IModbusFactory factory, IStreamResource streamResource, Action<string> operationCb)
         {
-            IModbusAsciiTransport transport = factory.CreateAsciiTransport(streamResource);
+            IModbusAsciiTransport transport = factory.CreateAsciiTransport(streamResource, operationCb);
 
             return new ModbusSerialMaster(transport);
         }
@@ -39,13 +42,13 @@ namespace NModbus
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="streamResource"></param>
+        /// <param name="operationCb"></param>
         /// <returns></returns>
-        public static IModbusSlaveNetwork CreateRtuSlaveNetwork(this IModbusFactory factory,
-            IStreamResource streamResource)
+        public static IModbusSlaveNetwork CreateRtuSlaveNetwork(this IModbusFactory factory, IStreamResource streamResource, Action<string> operationCb)
         {
-            IModbusRtuTransport transport = factory.CreateRtuTransport(streamResource);
+            IModbusRtuTransport transport = factory.CreateRtuTransport(streamResource, operationCb);
 
-            return factory.CreateSlaveNetwork(transport);
+            return factory.CreateSlaveNetwork(transport, operationCb);
         }
 
         /// <summary>
@@ -53,13 +56,13 @@ namespace NModbus
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="streamResource"></param>
+        /// <param name="operationCb"></param>
         /// <returns></returns>
-        public static IModbusSlaveNetwork CreateAsciiSlaveNetwork(this IModbusFactory factory,
-            IStreamResource streamResource)
+        public static IModbusSlaveNetwork CreateAsciiSlaveNetwork(this IModbusFactory factory, IStreamResource streamResource, Action<string> operationCb)
         {
-            IModbusAsciiTransport transport = factory.CreateAsciiTransport(streamResource);
+            IModbusAsciiTransport transport = factory.CreateAsciiTransport(streamResource, operationCb);
 
-            return factory.CreateSlaveNetwork(transport);
+            return factory.CreateSlaveNetwork(transport, operationCb);
         }
            
     }

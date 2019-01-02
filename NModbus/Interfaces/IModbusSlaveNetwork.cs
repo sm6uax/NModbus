@@ -33,5 +33,6 @@ namespace NModbus
         /// </summary>
         /// <param name="unitId"></param>
         void RemoveSlave(byte unitId);
+
     }
 }

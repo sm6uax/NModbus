@@ -23,8 +23,9 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of coils to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>Coils status.</returns>
-        public bool[] ReadCoils(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
+        public bool[] ReadCoils(byte slaveAddress, ushort startAddress, ushort numberOfPoints,string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPoints", numberOfPoints, 2000);
 
@@ -32,7 +33,8 @@ namespace NModbus.Device
                 ModbusFunctionCodes.ReadCoils,
                 slaveAddress,
                 startAddress,
-                numberOfPoints);
+                numberOfPoints,
+                clientIdentifier);
 
             return PerformReadDiscretes(request);
         }
@@ -43,8 +45,9 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of coils to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous read operation.</returns>
-        public Task<bool[]> ReadCoilsAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
+        public Task<bool[]> ReadCoilsAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints,string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPoints", numberOfPoints, 2000);
 
@@ -52,7 +55,8 @@ namespace NModbus.Device
                 ModbusFunctionCodes.ReadCoils,
                 slaveAddress,
                 startAddress,
-                numberOfPoints);
+                numberOfPoints,
+                clientIdentifier);
 
             return PerformReadDiscretesAsync(request);
         }
@@ -63,8 +67,9 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of discrete inputs to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>Discrete inputs status.</returns>
-        public bool[] ReadInputs(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
+        public bool[] ReadInputs(byte slaveAddress, ushort startAddress, ushort numberOfPoints, string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPoints", numberOfPoints, 2000);
 
@@ -72,7 +77,8 @@ namespace NModbus.Device
                 ModbusFunctionCodes.ReadInputs,
                 slaveAddress,
                 startAddress,
-                numberOfPoints);
+                numberOfPoints,
+                clientIdentifier);
 
             return PerformReadDiscretes(request);
         }
@@ -83,8 +89,9 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of discrete inputs to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous read operation.</returns>
-        public Task<bool[]> ReadInputsAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
+        public Task<bool[]> ReadInputsAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints,string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPoints", numberOfPoints, 2000);
 
@@ -92,7 +99,8 @@ namespace NModbus.Device
                 ModbusFunctionCodes.ReadInputs,
                 slaveAddress,
                 startAddress,
-                numberOfPoints);
+                numberOfPoints,
+                clientIdentifier);
 
             return PerformReadDiscretesAsync(request);
         }
@@ -103,8 +111,9 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of holding registers to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>Holding registers status.</returns>
-        public ushort[] ReadHoldingRegisters(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
+        public ushort[] ReadHoldingRegisters(byte slaveAddress, ushort startAddress, ushort numberOfPoints, string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPoints", numberOfPoints, 125);
 
@@ -112,7 +121,8 @@ namespace NModbus.Device
                 ModbusFunctionCodes.ReadHoldingRegisters,
                 slaveAddress,
                 startAddress,
-                numberOfPoints);
+                numberOfPoints,
+                clientIdentifier);
 
             return PerformReadRegisters(request);
         }
@@ -123,8 +133,9 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of holding registers to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous read operation.</returns>
-        public Task<ushort[]> ReadHoldingRegistersAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
+        public Task<ushort[]> ReadHoldingRegistersAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints,string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPoints", numberOfPoints, 125);
 
@@ -132,7 +143,8 @@ namespace NModbus.Device
                 ModbusFunctionCodes.ReadHoldingRegisters,
                 slaveAddress,
                 startAddress,
-                numberOfPoints);
+                numberOfPoints,
+                clientIdentifier);
 
             return PerformReadRegistersAsync(request);
         }
@@ -143,8 +155,9 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of holding registers to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>Input registers status.</returns>
-        public ushort[] ReadInputRegisters(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
+        public ushort[] ReadInputRegisters(byte slaveAddress, ushort startAddress, ushort numberOfPoints,string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPoints", numberOfPoints, 125);
 
@@ -152,7 +165,8 @@ namespace NModbus.Device
                 ModbusFunctionCodes.ReadInputRegisters,
                 slaveAddress,
                 startAddress,
-                numberOfPoints);
+                numberOfPoints,
+                clientIdentifier);
 
             return PerformReadRegisters(request);
         }
@@ -163,8 +177,9 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of holding registers to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous read operation.</returns>
-        public Task<ushort[]> ReadInputRegistersAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints)
+        public Task<ushort[]> ReadInputRegistersAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints,string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPoints", numberOfPoints, 125);
 
@@ -172,7 +187,8 @@ namespace NModbus.Device
                 ModbusFunctionCodes.ReadInputRegisters,
                 slaveAddress,
                 startAddress,
-                numberOfPoints);
+                numberOfPoints,
+                clientIdentifier);
 
             return PerformReadRegistersAsync(request);
         }
@@ -183,9 +199,10 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="coilAddress">Address to write value to.</param>
         /// <param name="value">Value to write.</param>
-        public void WriteSingleCoil(byte slaveAddress, ushort coilAddress, bool value)
+        /// <param name="clientIdentifier"></param>
+        public void WriteSingleCoil(byte slaveAddress, ushort coilAddress, bool value, string clientIdentifier)
         {
-            var request = new WriteSingleCoilRequestResponse(slaveAddress, coilAddress, value);
+            var request = new WriteSingleCoilRequestResponse(slaveAddress, coilAddress, value, clientIdentifier);
             Transport.UnicastMessage<WriteSingleCoilRequestResponse>(request);
         }
 
@@ -195,10 +212,11 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="coilAddress">Address to write value to.</param>
         /// <param name="value">Value to write.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteSingleCoilAsync(byte slaveAddress, ushort coilAddress, bool value)
+        public Task WriteSingleCoilAsync(byte slaveAddress, ushort coilAddress, bool value,string clientIdentifier)
         {
-            var request = new WriteSingleCoilRequestResponse(slaveAddress, coilAddress, value);
+            var request = new WriteSingleCoilRequestResponse(slaveAddress, coilAddress, value, clientIdentifier);
             return PerformWriteRequestAsync<WriteSingleCoilRequestResponse>(request);
         }
 
@@ -208,12 +226,14 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="registerAddress">Address to write.</param>
         /// <param name="value">Value to write.</param>
-        public void WriteSingleRegister(byte slaveAddress, ushort registerAddress, ushort value)
+        /// <param name="clientIdentifier"></param>
+        public void WriteSingleRegister(byte slaveAddress, ushort registerAddress, ushort value,string clientIdentifier)
         {
             var request = new WriteSingleRegisterRequestResponse(
                 slaveAddress,
                 registerAddress,
-                value);
+                value,
+                clientIdentifier);
 
             Transport.UnicastMessage<WriteSingleRegisterRequestResponse>(request);
         }
@@ -224,13 +244,15 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="registerAddress">Address to write.</param>
         /// <param name="value">Value to write.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteSingleRegisterAsync(byte slaveAddress, ushort registerAddress, ushort value)
+        public Task WriteSingleRegisterAsync(byte slaveAddress, ushort registerAddress, ushort value,string clientIdentifier)
         {
             var request = new WriteSingleRegisterRequestResponse(
                 slaveAddress,
                 registerAddress,
-                value);
+                value,
+                clientIdentifier);
 
             return PerformWriteRequestAsync<WriteSingleRegisterRequestResponse>(request);
         }
@@ -241,14 +263,16 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="startAddress">Address to begin writing values.</param>
         /// <param name="data">Values to write.</param>
-        public void WriteMultipleRegisters(byte slaveAddress, ushort startAddress, ushort[] data)
+        /// <param name="clientIdentifier"></param>
+        public void WriteMultipleRegisters(byte slaveAddress, ushort startAddress, ushort[] data, string clientIdentifier)
         {
             ValidateData("data", data, 123);
 
             var request = new WriteMultipleRegistersRequest(
                 slaveAddress,
                 startAddress,
-                new RegisterCollection(data));
+                new RegisterCollection(data),
+                clientIdentifier);
 
             Transport.UnicastMessage<WriteMultipleRegistersResponse>(request);
         }
@@ -259,15 +283,17 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="startAddress">Address to begin writing values.</param>
         /// <param name="data">Values to write.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteMultipleRegistersAsync(byte slaveAddress, ushort startAddress, ushort[] data)
+        public Task WriteMultipleRegistersAsync(byte slaveAddress, ushort startAddress, ushort[] data,string clientIdentifier)
         {
             ValidateData("data", data, 123);
 
             var request = new WriteMultipleRegistersRequest(
                 slaveAddress,
                 startAddress,
-                new RegisterCollection(data));
+                new RegisterCollection(data),
+                clientIdentifier);
 
             return PerformWriteRequestAsync<WriteMultipleRegistersResponse>(request);
         }
@@ -278,14 +304,16 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="startAddress">Address to begin writing values.</param>
         /// <param name="data">Values to write.</param>
-        public void WriteMultipleCoils(byte slaveAddress, ushort startAddress, bool[] data)
+        /// <param name="clientIdentifier"></param>
+        public void WriteMultipleCoils(byte slaveAddress, ushort startAddress, bool[] data,string clientIdentifier)
         {
             ValidateData("data", data, 1968);
 
             var request = new WriteMultipleCoilsRequest(
                 slaveAddress,
                 startAddress,
-                new DiscreteCollection(data));
+                new DiscreteCollection(data),
+                clientIdentifier);
 
             Transport.UnicastMessage<WriteMultipleCoilsResponse>(request);
         }
@@ -296,15 +324,17 @@ namespace NModbus.Device
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="startAddress">Address to begin writing values.</param>
         /// <param name="data">Values to write.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous write operation.</returns>
-        public Task WriteMultipleCoilsAsync(byte slaveAddress, ushort startAddress, bool[] data)
+        public Task WriteMultipleCoilsAsync(byte slaveAddress, ushort startAddress, bool[] data,string clientIdentifier)
         {
             ValidateData("data", data, 1968);
 
             var request = new WriteMultipleCoilsRequest(
                 slaveAddress,
                 startAddress,
-                new DiscreteCollection(data));
+                new DiscreteCollection(data),
+                clientIdentifier);
 
             return PerformWriteRequestAsync<WriteMultipleCoilsResponse>(request);
         }
@@ -318,12 +348,14 @@ namespace NModbus.Device
         /// <param name="numberOfPointsToRead">Number of registers to read.</param>
         /// <param name="startWriteAddress">Address to begin writing (Holding registers are addressed starting at 0).</param>
         /// <param name="writeData">Register values to write.</param>
+        /// <param name="clientIdentifier"></param>
         public ushort[] ReadWriteMultipleRegisters(
             byte slaveAddress,
             ushort startReadAddress,
             ushort numberOfPointsToRead,
             ushort startWriteAddress,
-            ushort[] writeData)
+            ushort[] writeData,
+            string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPointsToRead", numberOfPointsToRead, 125);
             ValidateData("writeData", writeData, 121);
@@ -333,7 +365,8 @@ namespace NModbus.Device
                 startReadAddress,
                 numberOfPointsToRead,
                 startWriteAddress,
-                new RegisterCollection(writeData));
+                new RegisterCollection(writeData),
+                clientIdentifier);
 
             return PerformReadRegisters(request);
         }
@@ -347,13 +380,15 @@ namespace NModbus.Device
         /// <param name="numberOfPointsToRead">Number of registers to read.</param>
         /// <param name="startWriteAddress">Address to begin writing (Holding registers are addressed starting at 0).</param>
         /// <param name="writeData">Register values to write.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         public Task<ushort[]> ReadWriteMultipleRegistersAsync(
             byte slaveAddress,
             ushort startReadAddress,
             ushort numberOfPointsToRead,
             ushort startWriteAddress,
-            ushort[] writeData)
+            ushort[] writeData,
+            string clientIdentifier)
         {
             ValidateNumberOfPoints("numberOfPointsToRead", numberOfPointsToRead, 125);
             ValidateData("writeData", writeData, 121);
@@ -363,7 +398,8 @@ namespace NModbus.Device
                 startReadAddress,
                 numberOfPointsToRead,
                 startWriteAddress,
-                new RegisterCollection(writeData));
+                new RegisterCollection(writeData),
+                clientIdentifier);
 
             return PerformReadRegistersAsync(request);
         }

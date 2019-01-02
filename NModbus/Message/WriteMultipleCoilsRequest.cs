@@ -22,13 +22,14 @@ namespace NModbus.Message
         /// <summary>
         ///     Write Multiple Coils request.
         /// </summary>
-        public WriteMultipleCoilsRequest(byte slaveAddress, ushort startAddress, DiscreteCollection data)
-            : base(slaveAddress, ModbusFunctionCodes.WriteMultipleCoils)
+        public WriteMultipleCoilsRequest(byte slaveAddress, ushort startAddress, DiscreteCollection data,string clientIdentifier)
+            : base(slaveAddress, ModbusFunctionCodes.WriteMultipleCoils,clientIdentifier)
         {
             StartAddress = startAddress;
             NumberOfPoints = (ushort)data.Count;
             ByteCount = (byte)((data.Count + 7) / 8);
             Data = data;
+            ClientIdentifier = clientIdentifier;
         }
 
         public byte ByteCount

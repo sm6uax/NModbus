@@ -82,7 +82,7 @@
             }
         }
 
-        public async Task<ushort[]> ReadInputRegistersAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints, ushort blockSize, CancellationToken cancellationToken)
+        public async Task<ushort[]> ReadInputRegistersAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints, ushort blockSize, CancellationToken cancellationToken, string clientIdentifier)
         {
             return await PerformFuncAsync(async ()  =>
             {
@@ -108,7 +108,7 @@
                     }
 
                     //Perform this operation
-                    ushort[] registersFromThisRead = await _master.ReadInputRegistersAsync(slaveAddress, (ushort)(startAddress + soFar), (ushort)thisRead);
+                    ushort[] registersFromThisRead = await _master.ReadInputRegistersAsync(slaveAddress, (ushort)(startAddress + soFar), (ushort)thisRead, clientIdentifier);
 
                     //Add these to the result
                     registers.AddRange(registersFromThisRead);
@@ -122,7 +122,7 @@
             }, cancellationToken);
         }
 
-        public Task<ushort[]> ReadHoldingRegistersAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints, ushort blockSize, CancellationToken cancellationToken)
+        public Task<ushort[]> ReadHoldingRegistersAsync(byte slaveAddress, ushort startAddress, ushort numberOfPoints, ushort blockSize, CancellationToken cancellationToken,string clientIdentifier)
         {
             return PerformFuncAsync(async () =>
             {
@@ -148,7 +148,7 @@
                     }
 
                     //Perform this operation
-                    ushort[] registersFromThisRead = await _master.ReadHoldingRegistersAsync(slaveAddress, (ushort)(startAddress + soFar), (ushort)thisRead);
+                    ushort[] registersFromThisRead = await _master.ReadHoldingRegistersAsync(slaveAddress, (ushort)(startAddress + soFar), (ushort)thisRead, clientIdentifier);
 
                     //Add these to the result
                     registers.AddRange(registersFromThisRead);
@@ -162,7 +162,7 @@
             }, cancellationToken);
         }
 
-        public Task WriteMultipleRegistersAsync(byte slaveAddress, ushort startAddress, ushort[] data, ushort blockSize, CancellationToken cancellationToken)
+        public Task WriteMultipleRegistersAsync(byte slaveAddress, ushort startAddress, ushort[] data, ushort blockSize, CancellationToken cancellationToken, string clientIdentifier)
         {
             return PerformAsync(async () =>
             {
@@ -184,7 +184,7 @@
 
                     ushort[] registers = data.Skip(soFar).Take(thisWrite).ToArray();
 
-                    await _master.WriteMultipleRegistersAsync(slaveAddress, (ushort) (startAddress + soFar), registers);
+                    await _master.WriteMultipleRegistersAsync(slaveAddress, (ushort) (startAddress + soFar), registers,clientIdentifier);
 
                     soFar += thisWrite;
                 }
@@ -192,30 +192,29 @@
             }, cancellationToken);  
         }
 
-        public Task WriteSingleRegisterAsync(byte slaveAddress, ushort address, ushort value, CancellationToken cancellationToken)
+        public Task WriteSingleRegisterAsync(byte slaveAddress, ushort address, ushort value, CancellationToken cancellationToken, string clientIdentifier)
         {
-            return PerformAsync(() => _master.WriteSingleRegisterAsync(slaveAddress, address, value), cancellationToken);
+            return PerformAsync(() => _master.WriteSingleRegisterAsync(slaveAddress, address, value, clientIdentifier), cancellationToken);
         }
 
-        public Task WriteCoilsAsync(byte slaveAddress, ushort startAddress, bool[] data, CancellationToken cancellationToken)
+        public Task WriteCoilsAsync(byte slaveAddress, ushort startAddress, bool[] data, CancellationToken cancellationToken, string clientIdentifier)
         {
-            return PerformAsync(() => _master.WriteMultipleCoilsAsync(slaveAddress, startAddress, data),  cancellationToken);
+            return PerformAsync(() => _master.WriteMultipleCoilsAsync(slaveAddress, startAddress, data, clientIdentifier),  cancellationToken);
         }
 
-        public Task<bool[]> ReadCoilsAsync(byte slaveAddress, ushort startAddress, ushort number,
-            CancellationToken cancellationToken)
+        public Task<bool[]> ReadCoilsAsync(byte slaveAddress, ushort startAddress, ushort number, CancellationToken cancellationToken, string clientIdentifier)
         {
-            return PerformFuncAsync(() => _master.ReadCoilsAsync(slaveAddress, startAddress, number), cancellationToken);
+            return PerformFuncAsync(() => _master.ReadCoilsAsync(slaveAddress, startAddress, number, clientIdentifier), cancellationToken);
         }
 
-        public Task<bool[]> ReadDiscretesAsync(byte slaveAddress, ushort startAddress, ushort number, CancellationToken cancellationToken)
+        public Task<bool[]> ReadDiscretesAsync(byte slaveAddress, ushort startAddress, ushort number, CancellationToken cancellationToken, string clientIdentifier)
         {
-            return PerformFuncAsync(() => _master.ReadInputsAsync(slaveAddress, startAddress, number), cancellationToken);
+            return PerformFuncAsync(() => _master.ReadInputsAsync(slaveAddress, startAddress, number, clientIdentifier), cancellationToken);
         }
 
-        public Task WriteSingleCoilAsync(byte slaveAddress, ushort coilAddress, bool value, CancellationToken cancellationToken)
+        public Task WriteSingleCoilAsync(byte slaveAddress, ushort coilAddress, bool value, CancellationToken cancellationToken, string clientIdentifier)
         {
-            return PerformAsync(() => _master.WriteSingleCoilAsync(slaveAddress, coilAddress, value), cancellationToken);
+            return PerformAsync(() => _master.WriteSingleCoilAsync(slaveAddress, coilAddress, value, clientIdentifier), cancellationToken);
         }
 
         public void Dispose()

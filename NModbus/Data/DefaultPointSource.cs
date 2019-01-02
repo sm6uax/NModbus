@@ -20,7 +20,7 @@ namespace NModbus.Data
             _points = new Lazy<TPoint[]>(() => new TPoint[ushort.MaxValue]);
         }
 
-        public TPoint[] ReadPoints(ushort startAddress, ushort numberOfPoints, ushort FunctionCode)
+        public TPoint[] ReadPoints(ushort startAddress, ushort numberOfPoints, ushort FunctionCode,string clientIdentifier)
         {
             lock (_syncRoot)
             {
@@ -30,7 +30,7 @@ namespace NModbus.Data
             }
         }
 
-        public void WritePoints(ushort startAddress, TPoint[] points, ushort FunctionCode)
+        public void WritePoints(ushort startAddress, TPoint[] points, ushort FunctionCode, string clientIdentifier)
         {
             lock (_syncRoot)
             {

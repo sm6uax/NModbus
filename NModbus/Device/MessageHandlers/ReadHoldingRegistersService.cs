@@ -27,11 +27,11 @@ namespace NModbus.Device.MessageHandlers
 
         protected override IModbusMessage Handle(ReadHoldingInputRegistersRequest request, ISlaveDataStore dataStore)
         {
-            ushort[] registers = dataStore.HoldingRegisters.ReadPoints(request.StartAddress, request.NumberOfPoints,request.FunctionCode);
+            ushort[] registers = dataStore.HoldingRegisters.ReadPoints(request.StartAddress, request.NumberOfPoints,request.FunctionCode,request.ClientIdentifier);
 
             RegisterCollection data = new RegisterCollection(registers);
 
-            return new ReadHoldingInputRegistersResponse(request.FunctionCode, request.SlaveAddress, data);
+            return new ReadHoldingInputRegistersResponse(request.FunctionCode, request.SlaveAddress, data,request.ClientIdentifier);
         }
     }
 }

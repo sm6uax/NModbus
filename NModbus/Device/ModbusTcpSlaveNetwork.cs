@@ -22,7 +22,7 @@ namespace NModbus.Device
     {
         private const int TimeWaitResponse = 1000;
         private readonly object _serverLock = new object();
-
+        public static Action<string> _OperationCb = null;
         private readonly ConcurrentDictionary<string, ModbusMasterTcpConnection> _masters =
             new ConcurrentDictionary<string, ModbusMasterTcpConnection>();
 
@@ -30,7 +30,7 @@ namespace NModbus.Device
 #if TIMER
         private Timer _timer;
 #endif
-        internal ModbusTcpSlaveNetwork(TcpListener tcpListener, IModbusFactory modbusFactory,  IModbusLogger logger)
+        internal ModbusTcpSlaveNetwork(TcpListener tcpListener, IModbusFactory modbusFactory,  IModbusLogger logger, Action<string> OperationCb)
             : base(new EmptyTransport(modbusFactory), modbusFactory, logger)
         {
             if (tcpListener == null)
@@ -39,6 +39,7 @@ namespace NModbus.Device
             }
 
             _server = tcpListener;
+            _OperationCb = OperationCb;
         }
 
 #if TIMER
@@ -121,7 +122,10 @@ namespace NModbus.Device
                 TcpClient client = await Server.AcceptTcpClientAsync().ConfigureAwait(false);
                 var masterConnection = new ModbusMasterTcpConnection(client, this, ModbusFactory, Logger);
                 masterConnection.ModbusMasterTcpConnectionClosed += OnMasterConnectionClosedHandler;
+                
                 _masters.TryAdd(client.Client.RemoteEndPoint.ToString(), masterConnection);
+                _OperationCb.Invoke(client.Client.RemoteEndPoint.ToString());
+                
             }
         }
 
@@ -162,6 +166,7 @@ namespace NModbus.Device
                                 if (_masters.TryRemove(key, out connection))
                                 {
                                     connection.ModbusMasterTcpConnectionClosed -= OnMasterConnectionClosedHandler;
+                                    _OperationCb.Invoke(connection.EndPoint.ToString());
                                     connection.Dispose();
                                 }
                             }
@@ -202,5 +207,6 @@ namespace NModbus.Device
 
             Logger.Information($"Removed Master {e.EndPoint}");
         }
+
     }
 }

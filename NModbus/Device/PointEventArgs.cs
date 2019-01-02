@@ -14,15 +14,19 @@ namespace NModbus.Device
 
         private ushort _functionCode;
 
-        public PointEventArgs(ushort startAddress, ushort numberOfPoints, ushort FunctionCode)
+        private string _clientIdentifier;
+
+        public PointEventArgs(ushort startAddress, ushort numberOfPoints, ushort FunctionCode,string clientIdentifier)
         {
             _startAddress = startAddress;
             _numberOfPoints = numberOfPoints;
             _functionCode = FunctionCode;
+            _clientIdentifier = clientIdentifier;
         }
 
         public ushort NumberOfPoints => _numberOfPoints;
         public ushort FunctionCode => _functionCode;
         public ushort StartAddress => _startAddress;
+        public string ClientIdentifier => _clientIdentifier;
     }
 }

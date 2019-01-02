@@ -18,7 +18,8 @@
         /// </summary>
         /// <param name="slaveAddress">Address of device to test.</param>
         /// <param name="data">Data to return.</param>
+        /// <param name="clientIdentifier">Client Identifier.</param>
         /// <returns>Return true if slave device echoed data.</returns>
-        bool ReturnQueryData(byte slaveAddress, ushort data);
+        bool ReturnQueryData(byte slaveAddress, ushort data,string clientIdentifier);
     }
 }

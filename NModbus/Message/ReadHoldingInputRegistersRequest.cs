@@ -11,11 +11,13 @@ namespace NModbus.Message
         {
         }
 
-        public ReadHoldingInputRegistersRequest(byte functionCode, byte slaveAddress, ushort startAddress, ushort numberOfPoints)
-            : base(slaveAddress, functionCode)
+        public ReadHoldingInputRegistersRequest(byte functionCode, byte slaveAddress, ushort startAddress, ushort numberOfPoints, string clientIdentifier)
+            : base(slaveAddress, functionCode, clientIdentifier)
         {
             StartAddress = startAddress;
             NumberOfPoints = numberOfPoints;
+            ClientIdentifier = clientIdentifier;
+            Console.WriteLine($"client id: {clientIdentifier}");
         }
 
         public ushort StartAddress

@@ -27,14 +27,15 @@ namespace NModbus.Device.MessageHandlers
 
         protected override IModbusMessage Handle(ReadCoilsInputsRequest request, ISlaveDataStore dataStore)
         {
-            bool[] discretes = dataStore.CoilDiscretes.ReadPoints(request.StartAddress, request.NumberOfPoints, request.FunctionCode);
+            bool[] discretes = dataStore.CoilDiscretes.ReadPoints(request.StartAddress, request.NumberOfPoints, request.FunctionCode,request.ClientIdentifier);
 
             DiscreteCollection data = new DiscreteCollection(discretes);
 
             return new ReadCoilsInputsResponse(
                 request.FunctionCode, 
                 request.SlaveAddress, 
-                data.ByteCount, data);
+                data.ByteCount, data,
+                request.ClientIdentifier);
         }
     }
 }

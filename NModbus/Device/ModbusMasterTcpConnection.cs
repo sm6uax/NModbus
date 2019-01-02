@@ -95,6 +95,7 @@ namespace NModbus.Device
                 Logger.Trace($"RX from Master at {EndPoint}: {string.Join(", ", frame)}");
 
                 var request = _modbusFactory.CreateModbusRequest(_messageFrame);
+                request.ClientIdentifier = EndPoint;
                 request.TransactionId = (ushort)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(frame, 0));
 
                 IModbusSlave slave = _slaveNetwork.GetSlave(request.SlaveAddress);

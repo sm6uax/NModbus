@@ -20,9 +20,9 @@ namespace NModbus.Message
         /// <summary>
         ///     Abstract Modbus message.
         /// </summary>
-        internal AbstractModbusMessage(byte slaveAddress, byte functionCode)
+        internal AbstractModbusMessage(byte slaveAddress, byte functionCode,string clientIdentifier)
         {
-            _messageImpl = new ModbusMessageImpl(slaveAddress, functionCode);
+            _messageImpl = new ModbusMessageImpl(slaveAddress, functionCode,  clientIdentifier);
         }
 
         public ushort TransactionId
@@ -30,7 +30,11 @@ namespace NModbus.Message
             get => _messageImpl.TransactionId;
             set => _messageImpl.TransactionId = value;
         }
-
+        public string ClientIdentifier
+        {
+            get => _messageImpl.ClientIdentifier;
+            set => _messageImpl.ClientIdentifier = value;
+        }
         public byte FunctionCode
         {
             get => _messageImpl.FunctionCode;

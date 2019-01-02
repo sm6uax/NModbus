@@ -20,8 +20,8 @@ namespace NModbus.Device
     internal class ModbusUdpSlaveNetwork : ModbusSlaveNetwork
     {
         private readonly UdpClient _udpClient;
-
-        public ModbusUdpSlaveNetwork(UdpClient udpClient, IModbusFactory modbusFactory, IModbusLogger logger)
+        public static Action<string> _OperationCb = null;
+        public ModbusUdpSlaveNetwork(UdpClient udpClient, IModbusFactory modbusFactory, IModbusLogger logger,Action<string> operationCb)
             : base(new ModbusIpTransport(new UdpClientAdapter(udpClient), modbusFactory, logger), modbusFactory, logger)
         {
             _udpClient = udpClient;
@@ -47,6 +47,7 @@ namespace NModbus.Device
                     Logger.LogFrameRx(frame);
 
                     IModbusMessage request = ModbusFactory.CreateModbusRequest(frame.Slice(6, frame.Length - 6).ToArray());
+                    request.ClientIdentifier = masterEndPoint.ToString();
                     request.TransactionId = (ushort)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(frame, 0));
 
                     // perform action and build response
@@ -58,7 +59,7 @@ namespace NModbus.Device
 
                         // write response
                         byte[] responseFrame = Transport.BuildMessageFrame(response);
-
+                        
                         Logger.LogFrameTx(frame);
 
                         await _udpClient.SendAsync(responseFrame, responseFrame.Length, masterEndPoint)

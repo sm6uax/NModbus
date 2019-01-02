@@ -13,11 +13,12 @@ namespace NModbus.Message
         {
         }
 
-        public WriteSingleRegisterRequestResponse(byte slaveAddress, ushort startAddress, ushort registerValue)
-            : base(slaveAddress, ModbusFunctionCodes.WriteSingleRegister)
+        public WriteSingleRegisterRequestResponse(byte slaveAddress, ushort startAddress, ushort registerValue,string clientIdentifier)
+            : base(slaveAddress, ModbusFunctionCodes.WriteSingleRegister,clientIdentifier)
         {
             StartAddress = startAddress;
             Data = new RegisterCollection(registerValue);
+            ClientIdentifier = clientIdentifier;
         }
 
         public override int MinimumFrameSize => 6;

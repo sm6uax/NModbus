@@ -69,7 +69,7 @@ namespace NModbus.Device
                 }
                 else
                 {
-                    // perform action
+                    // perform action                              
                     return slave.ApplyRequest(request);
                 }
             }

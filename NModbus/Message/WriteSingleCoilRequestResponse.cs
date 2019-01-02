@@ -14,11 +14,12 @@ namespace NModbus.Message
         {
         }
 
-        public WriteSingleCoilRequestResponse(byte slaveAddress, ushort startAddress, bool coilState)
-            : base(slaveAddress, ModbusFunctionCodes.WriteSingleCoil)
+        public WriteSingleCoilRequestResponse(byte slaveAddress, ushort startAddress, bool coilState,string clientIdentifier)
+            : base(slaveAddress, ModbusFunctionCodes.WriteSingleCoil, clientIdentifier)
         {
             StartAddress = startAddress;
             Data = new RegisterCollection(coilState ? Modbus.CoilOn : Modbus.CoilOff);
+            ClientIdentifier = clientIdentifier;
         }
 
         public override int MinimumFrameSize => 6;

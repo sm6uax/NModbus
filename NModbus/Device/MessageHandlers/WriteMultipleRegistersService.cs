@@ -30,12 +30,13 @@ namespace NModbus.Device.MessageHandlers
         {
             ushort[] registers = request.Data.ToArray();
 
-            dataStore.HoldingRegisters.WritePoints(request.StartAddress, registers, request.FunctionCode);
+            dataStore.HoldingRegisters.WritePoints(request.StartAddress, registers, request.FunctionCode, request.ClientIdentifier);
 
             return new WriteMultipleRegistersResponse(
                 request.SlaveAddress,
                 request.StartAddress,
-                request.NumberOfPoints);
+                request.NumberOfPoints, 
+                request.ClientIdentifier);
         }
     }
 }

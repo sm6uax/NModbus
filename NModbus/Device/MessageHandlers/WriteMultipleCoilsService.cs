@@ -31,12 +31,13 @@ namespace NModbus.Device.MessageHandlers
                 .Take(request.NumberOfPoints)
                 .ToArray();
 
-            dataStore.CoilDiscretes.WritePoints(request.StartAddress, points, request.FunctionCode);
+            dataStore.CoilDiscretes.WritePoints(request.StartAddress, points, request.FunctionCode, request.ClientIdentifier);
 
             return new WriteMultipleCoilsResponse(
                request.SlaveAddress,
                request.StartAddress,
-               request.NumberOfPoints);
+               request.NumberOfPoints,
+               request.ClientIdentifier);
         }
     }
 }

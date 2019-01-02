@@ -17,12 +17,14 @@ namespace NModbus.Extensions.Enron
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of holding registers to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>Holding registers status</returns>
         public static uint[] ReadHoldingRegisters32(
             this IModbusMaster master,
             byte slaveAddress,
             ushort startAddress,
-            ushort numberOfPoints)
+            ushort numberOfPoints,
+            string clientIdentifier)
         {
             if (master == null)
             {
@@ -35,7 +37,8 @@ namespace NModbus.Extensions.Enron
             var rawRegisters = master.ReadHoldingRegisters(
                 slaveAddress,
                 startAddress,
-                (ushort)(numberOfPoints * 2));
+                (ushort)(numberOfPoints * 2),
+                clientIdentifier);
 
             return Convert(rawRegisters).ToArray();
         }
@@ -47,12 +50,14 @@ namespace NModbus.Extensions.Enron
         /// <param name="slaveAddress">Address of device to read values from.</param>
         /// <param name="startAddress">Address to begin reading.</param>
         /// <param name="numberOfPoints">Number of holding registers to read.</param>
+        /// <param name="clientIdentifier"></param>
         /// <returns>Input registers status</returns>
         public static uint[] ReadInputRegisters32(
             this IModbusMaster master,
             byte slaveAddress,
             ushort startAddress,
-            ushort numberOfPoints)
+            ushort numberOfPoints,
+            string clientIdentifier)
         {
             if (master == null)
             {
@@ -64,7 +69,8 @@ namespace NModbus.Extensions.Enron
             var rawRegisters = master.ReadInputRegisters(
                 slaveAddress,
                 startAddress,
-                (ushort)(numberOfPoints * 2));
+                (ushort)(numberOfPoints * 2),
+                clientIdentifier);
 
             return Convert(rawRegisters).ToArray();
         }
@@ -76,18 +82,20 @@ namespace NModbus.Extensions.Enron
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="registerAddress">Address to write.</param>
         /// <param name="value">Value to write.</param>
+        /// <param name="clientIdentifier"></param>
         public static void WriteSingleRegister32(
             this IModbusMaster master,
             byte slaveAddress,
             ushort registerAddress,
-            uint value)
+            uint value,
+            string clientIdentifier)
         {
             if (master == null)
             {
                 throw new ArgumentNullException(nameof(master));
             }
 
-            master.WriteMultipleRegisters32(slaveAddress, registerAddress, new[] { value });
+            master.WriteMultipleRegisters32(slaveAddress, registerAddress, new[] { value }, clientIdentifier);
         }
 
         /// <summary>
@@ -97,11 +105,13 @@ namespace NModbus.Extensions.Enron
         /// <param name="slaveAddress">Address of the device to write to.</param>
         /// <param name="startAddress">Address to begin writing values.</param>
         /// <param name="data">Values to write.</param>
+        /// <param name="clientIdentifier"></param>
         public static void WriteMultipleRegisters32(
             this IModbusMaster master,
             byte slaveAddress,
             ushort startAddress,
-            uint[] data)
+            uint[] data,
+            string clientIdentifier)
         {
             if (master == null)
             {
@@ -118,7 +128,7 @@ namespace NModbus.Extensions.Enron
                 throw new ArgumentException("The length of argument data must be between 1 and 61 inclusive.");
             }
 
-            master.WriteMultipleRegisters(slaveAddress, startAddress, Convert(data).ToArray());
+            master.WriteMultipleRegisters(slaveAddress, startAddress, Convert(data).ToArray(), clientIdentifier);
         }
 
         /// <summary>

@@ -32,17 +32,18 @@ namespace NModbus.Device.MessageHandlers
             ushort[] pointsToWrite = request.WriteRequest.Data
                 .ToArray();
 
-            dataStore.HoldingRegisters.WritePoints(request.ReadRequest.StartAddress, pointsToWrite, request.FunctionCode);
+            dataStore.HoldingRegisters.WritePoints(request.ReadRequest.StartAddress, pointsToWrite, request.FunctionCode, request.ClientIdentifier);
 
             ushort[] readPoints = dataStore.HoldingRegisters.ReadPoints(request.ReadRequest.StartAddress,
-                request.ReadRequest.NumberOfPoints,request.FunctionCode);
+                request.ReadRequest.NumberOfPoints,request.FunctionCode, request.ClientIdentifier);
 
             RegisterCollection data = new RegisterCollection(readPoints);
 
             return new ReadHoldingInputRegistersResponse(
                 request.FunctionCode,
                 request.SlaveAddress,
-                data);
+                data,
+                request.ClientIdentifier);
         }
     }
 }

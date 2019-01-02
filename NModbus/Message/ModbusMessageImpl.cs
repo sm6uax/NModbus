@@ -20,10 +20,11 @@ namespace NModbus.Message
         {
         }
 
-        public ModbusMessageImpl(byte slaveAddress, byte functionCode)
+        public ModbusMessageImpl(byte slaveAddress, byte functionCode,string clientIdentifier)
         {
             SlaveAddress = slaveAddress;
             FunctionCode = functionCode;
+            ClientIdentifier = clientIdentifier;
         }
 
         public byte? ByteCount { get; set; }
@@ -37,6 +38,8 @@ namespace NModbus.Message
         public ushort? NumberOfPoints { get; set; }
 
         public byte SlaveAddress { get; set; }
+
+        public string ClientIdentifier { get; set; }
 
         public ushort? StartAddress { get; set; }
 
@@ -116,5 +119,5 @@ namespace NModbus.Message
             SlaveAddress = frame[0];
             FunctionCode = frame[1];
         }
-    }
+    };
 }

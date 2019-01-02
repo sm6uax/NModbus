@@ -30,7 +30,7 @@ namespace NModbus.Device.MessageHandlers
             ushort[] points = request.Data
                 .ToArray();
 
-            dataStore.HoldingRegisters.WritePoints(request.StartAddress, points, request.FunctionCode);
+            dataStore.HoldingRegisters.WritePoints(request.StartAddress, points, request.FunctionCode, request.ClientIdentifier);
 
             return request;
         }

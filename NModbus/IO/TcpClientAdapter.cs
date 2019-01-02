@@ -46,6 +46,7 @@ namespace NModbus.IO
         }
         public string GetClientIP()
         {
+
             return  ((IPEndPoint)_tcpClient.Client.RemoteEndPoint).Address.ToString();
         }
         public void DiscardInBuffer()

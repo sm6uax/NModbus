@@ -52,7 +52,8 @@ namespace NModbus.Device
                 response = new SlaveExceptionResponse(
                     request.SlaveAddress,
                     (byte) (Modbus.ExceptionOffset + request.FunctionCode),
-                    ex.ExceptionCode);
+                    ex.ExceptionCode,
+                    request.ClientIdentifier);
             }
 #if NET45 || NET46
             catch (Exception ex)
@@ -60,7 +61,8 @@ namespace NModbus.Device
                 //Okay - this is no beuno.
                 response = new SlaveExceptionResponse(request.SlaveAddress,
                     (byte) (Modbus.ExceptionOffset + request.FunctionCode),
-                    SlaveExceptionCodes.SlaveDeviceFailure);
+                    SlaveExceptionCodes.SlaveDeviceFailure,
+                    request.ClientIdentifier);
 
                 //Give the consumer a chance at seeing what the *(&& happened.
                 Trace.WriteLine(ex.ToString());
@@ -71,7 +73,8 @@ namespace NModbus.Device
                 //Okay - this is no beuno.
                 response = new SlaveExceptionResponse(request.SlaveAddress,
                     (byte)(Modbus.ExceptionOffset + request.FunctionCode),
-                    SlaveExceptionCodes.SlaveDeviceFailure);
+                    SlaveExceptionCodes.SlaveDeviceFailure,
+                    request.ClientIdentifier);
             }
 #endif
 

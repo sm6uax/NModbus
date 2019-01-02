@@ -34,6 +34,8 @@ namespace NModbus
         /// </summary>
         ushort TransactionId { get; set; }
 
+
+        string ClientIdentifier { get; set; }
         /// <summary>
         ///     Initializes a modbus message from the specified message frame.
         /// </summary>

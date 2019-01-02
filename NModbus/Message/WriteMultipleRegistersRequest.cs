@@ -13,13 +13,14 @@ namespace NModbus.Message
         {
         }
 
-        public WriteMultipleRegistersRequest(byte slaveAddress, ushort startAddress, RegisterCollection data)
-            : base(slaveAddress, ModbusFunctionCodes.WriteMultipleRegisters)
+        public WriteMultipleRegistersRequest(byte slaveAddress, ushort startAddress, RegisterCollection data, string clientIdentifier)
+            : base(slaveAddress, ModbusFunctionCodes.WriteMultipleRegisters,clientIdentifier)
         {
             StartAddress = startAddress;
             NumberOfPoints = (ushort)data.Count;
             ByteCount = (byte)(data.Count * 2);
             Data = data;
+            ClientIdentifier = clientIdentifier;
         }
 
         public byte ByteCount

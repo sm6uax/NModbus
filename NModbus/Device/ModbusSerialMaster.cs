@@ -28,13 +28,15 @@ namespace NModbus.Device
         /// </summary>
         /// <param name="slaveAddress">Address of device to test.</param>
         /// <param name="data">Data to return.</param>
+        /// <param name="clientIdentifier">Client Identifier.</param>
         /// <returns>Return true if slave device echoed data.</returns>
-        public bool ReturnQueryData(byte slaveAddress, ushort data)
+        public bool ReturnQueryData(byte slaveAddress, ushort data,string clientIdentifier)
         {
             DiagnosticsRequestResponse request = new DiagnosticsRequestResponse(
                 ModbusFunctionCodes.DiagnosticsReturnQueryData,
                 slaveAddress,
-                new RegisterCollection(data));
+                new RegisterCollection(data),
+                clientIdentifier);
 
             DiagnosticsRequestResponse response = Transport.UnicastMessage<DiagnosticsRequestResponse>(request);
 
