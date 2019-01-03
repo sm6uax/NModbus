@@ -79,7 +79,7 @@ namespace NModbus
             }
         }
 
-        public IModbusSlave CreateSlave(byte unitId, ISlaveDataStore dataStore = null, Action<string> operationCb=null)
+        public IModbusSlave CreateSlave(byte unitId, ISlaveDataStore dataStore = null, Action<string,int,int> operationCb=null)
         {
             if (dataStore == null)
                 dataStore = new DefaultSlaveDataStore();
@@ -87,32 +87,32 @@ namespace NModbus
             return new ModbusSlave(unitId, dataStore, GetAllFunctionServices());
         }
 
-        public IModbusSlaveNetwork CreateSlaveNetwork(IModbusRtuTransport transport, Action<string> operationCb)
+        public IModbusSlaveNetwork CreateSlaveNetwork(IModbusRtuTransport transport, Action<string,int,int> operationCb)
         {
             return new ModbusSerialSlaveNetwork(transport, this, Logger, operationCb);
         }
 
-        public IModbusSlaveNetwork CreateSlaveNetwork(IModbusAsciiTransport transport, Action<string> operationCb)
+        public IModbusSlaveNetwork CreateSlaveNetwork(IModbusAsciiTransport transport, Action<string,int,int> operationCb)
         {
             return new ModbusSerialSlaveNetwork(transport, this, Logger, operationCb);
         }
 
-        public IModbusSlaveNetwork CreateSlaveNetwork(TcpListener tcpListener,Action<string> operationCb)
+        public IModbusSlaveNetwork CreateSlaveNetwork(TcpListener tcpListener,Action<string,int,int> operationCb)
         {
             return new ModbusTcpSlaveNetwork(tcpListener, this, Logger, operationCb);
         }
 
-        public IModbusSlaveNetwork CreateSlaveNetwork(UdpClient client, Action<string> operationCb)
+        public IModbusSlaveNetwork CreateSlaveNetwork(UdpClient client, Action<string,int,int> operationCb)
         {
             return new ModbusUdpSlaveNetwork(client, this, Logger, operationCb);
         }
 
-        public IModbusRtuTransport CreateRtuTransport(IStreamResource streamResource, Action<string> operationCb)
+        public IModbusRtuTransport CreateRtuTransport(IStreamResource streamResource, Action<string,int,int> operationCb)
         {
             return new ModbusRtuTransport(streamResource, this, Logger, operationCb);
         }
 
-        public IModbusAsciiTransport CreateAsciiTransport(IStreamResource streamResource, Action<string> operationCb)
+        public IModbusAsciiTransport CreateAsciiTransport(IStreamResource streamResource, Action<string,int,int> operationCb)
         {
             return new ModbusAsciiTransport(streamResource, this, Logger, operationCb);
         }
@@ -126,12 +126,12 @@ namespace NModbus
                 .ToArray();
         }
 
-        public IModbusSerialMaster CreateMaster(IModbusSerialTransport transport, Action<string> operationCb)
+        public IModbusSerialMaster CreateMaster(IModbusSerialTransport transport, Action<string,int,int> operationCb)
         {
             return new ModbusSerialMaster(transport);
         }
 
-        public IModbusMaster CreateMaster(UdpClient client, Action<string> operationCb)
+        public IModbusMaster CreateMaster(UdpClient client, Action<string,int,int> operationCb)
         {
             var adapter = new UdpClientAdapter(client);
 
@@ -140,7 +140,7 @@ namespace NModbus
             return new ModbusIpMaster(transport);
         }
 
-        public IModbusMaster CreateMaster(TcpClient client, Action<string> operationCb)
+        public IModbusMaster CreateMaster(TcpClient client, Action<string,int,int> operationCb)
         {
             var adapter = new TcpClientAdapter(client);
 

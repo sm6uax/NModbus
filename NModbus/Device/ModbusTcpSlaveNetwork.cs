@@ -22,7 +22,7 @@ namespace NModbus.Device
     {
         private const int TimeWaitResponse = 1000;
         private readonly object _serverLock = new object();
-        public static Action<string> _OperationCb = null;
+        public static Action<string,int,int> _OperationCb = null;
         private readonly ConcurrentDictionary<string, ModbusMasterTcpConnection> _masters =
             new ConcurrentDictionary<string, ModbusMasterTcpConnection>();
 
@@ -30,7 +30,7 @@ namespace NModbus.Device
 #if TIMER
         private Timer _timer;
 #endif
-        internal ModbusTcpSlaveNetwork(TcpListener tcpListener, IModbusFactory modbusFactory,  IModbusLogger logger, Action<string> OperationCb)
+        internal ModbusTcpSlaveNetwork(TcpListener tcpListener, IModbusFactory modbusFactory,  IModbusLogger logger, Action<string,int,int> OperationCb)
             : base(new EmptyTransport(modbusFactory), modbusFactory, logger)
         {
             if (tcpListener == null)
@@ -122,9 +122,8 @@ namespace NModbus.Device
                 TcpClient client = await Server.AcceptTcpClientAsync().ConfigureAwait(false);
                 var masterConnection = new ModbusMasterTcpConnection(client, this, ModbusFactory, Logger);
                 masterConnection.ModbusMasterTcpConnectionClosed += OnMasterConnectionClosedHandler;
-                
                 _masters.TryAdd(client.Client.RemoteEndPoint.ToString(), masterConnection);
-                _OperationCb.Invoke(client.Client.RemoteEndPoint.ToString());
+                _OperationCb.Invoke(client.Client.RemoteEndPoint.ToString(),1,0);
                 
             }
         }
@@ -166,7 +165,7 @@ namespace NModbus.Device
                                 if (_masters.TryRemove(key, out connection))
                                 {
                                     connection.ModbusMasterTcpConnectionClosed -= OnMasterConnectionClosedHandler;
-                                    _OperationCb.Invoke(connection.EndPoint.ToString());
+                                    _OperationCb.Invoke(connection.EndPoint.ToString(),2,0);
                                     connection.Dispose();
                                 }
                             }

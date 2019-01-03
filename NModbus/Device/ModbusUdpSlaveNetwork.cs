@@ -20,8 +20,8 @@ namespace NModbus.Device
     internal class ModbusUdpSlaveNetwork : ModbusSlaveNetwork
     {
         private readonly UdpClient _udpClient;
-        public static Action<string> _OperationCb = null;
-        public ModbusUdpSlaveNetwork(UdpClient udpClient, IModbusFactory modbusFactory, IModbusLogger logger,Action<string> operationCb)
+        public static Action<string,int,int> _OperationCb = null;
+        public ModbusUdpSlaveNetwork(UdpClient udpClient, IModbusFactory modbusFactory, IModbusLogger logger,Action<string,int,int> operationCb)
             : base(new ModbusIpTransport(new UdpClientAdapter(udpClient), modbusFactory, logger), modbusFactory, logger)
         {
             _udpClient = udpClient;

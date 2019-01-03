@@ -17,9 +17,9 @@ namespace NModbus.IO
 
         public const int ResponseFrameStartLength = 4;
 
-        public static Action<string> _OperationCb = null;
+        public static Action<string,int,int> _OperationCb = null;
 
-        internal ModbusRtuTransport(IStreamResource streamResource, IModbusFactory modbusFactory, IModbusLogger logger, Action<string> operationCb)
+        internal ModbusRtuTransport(IStreamResource streamResource, IModbusFactory modbusFactory, IModbusLogger logger, Action<string,int,int> operationCb)
             : base(streamResource, modbusFactory, logger)
         {
             if (modbusFactory == null) throw new ArgumentNullException(nameof(modbusFactory));

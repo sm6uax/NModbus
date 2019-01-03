@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("3.0.0.0")]
 [assembly: AssemblyFileVersion("3.0.0.0")]
-[assembly: AssemblyInformationalVersion("3.0.0")]
+[assembly: AssemblyInformationalVersion("3.0.1")]
 
 #if !SIGNED
 [assembly: InternalsVisibleTo("NModbus.UnitTests")]

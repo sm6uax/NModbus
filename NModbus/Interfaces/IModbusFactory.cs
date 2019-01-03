@@ -30,7 +30,7 @@ namespace NModbus
         /// <param name="transport"></param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusSerialMaster CreateMaster(IModbusSerialTransport transport, Action<string> operationCb);
+        IModbusSerialMaster CreateMaster(IModbusSerialTransport transport, Action<string,int,int> operationCb);
 
         /// <summary>
         /// Create a TCP master.
@@ -38,7 +38,7 @@ namespace NModbus
         /// <param name="client"></param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusMaster CreateMaster(UdpClient client, Action<string> operationCb);
+        IModbusMaster CreateMaster(UdpClient client, Action<string,int,int> operationCb);
 
         /// <summary>
         /// 
@@ -46,7 +46,7 @@ namespace NModbus
         /// <param name="client"></param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusMaster CreateMaster(TcpClient client, Action<string> operationCb);
+        IModbusMaster CreateMaster(TcpClient client, Action<string,int,int> operationCb);
 
         #endregion
 
@@ -59,7 +59,7 @@ namespace NModbus
         /// <param name="dataStore">Optionally specify a custom data store for the created slave.</param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusSlave CreateSlave(byte unitId, ISlaveDataStore dataStore = null, Action<string> operationCb = null);
+        IModbusSlave CreateSlave(byte unitId, ISlaveDataStore dataStore = null, Action<string,int,int> operationCb = null);
 
         #endregion
 
@@ -71,7 +71,7 @@ namespace NModbus
         /// <param name="transport"></param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusSlaveNetwork CreateSlaveNetwork(IModbusRtuTransport transport, Action<string> operationCb);
+        IModbusSlaveNetwork CreateSlaveNetwork(IModbusRtuTransport transport, Action<string,int,int> operationCb);
 
         /// <summary>
         /// Creates an ascii slave network.
@@ -79,7 +79,7 @@ namespace NModbus
         /// <param name="transport">The ascii transport to base this on.</param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusSlaveNetwork CreateSlaveNetwork(IModbusAsciiTransport transport, Action<string> operationCb);
+        IModbusSlaveNetwork CreateSlaveNetwork(IModbusAsciiTransport transport, Action<string,int,int> operationCb);
 
         /// <summary>
         /// Create a slave network based on TCP.
@@ -87,7 +87,7 @@ namespace NModbus
         /// <param name="tcpListener"></param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusSlaveNetwork CreateSlaveNetwork(TcpListener tcpListener, Action<string> operationCb);
+        IModbusSlaveNetwork CreateSlaveNetwork(TcpListener tcpListener, Action<string,int,int> operationCb);
 
         /// <summary>
         /// Creates a UDP modbus slave network.
@@ -95,7 +95,7 @@ namespace NModbus
         /// <param name="client"></param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusSlaveNetwork CreateSlaveNetwork(UdpClient client, Action<string> operationCb);
+        IModbusSlaveNetwork CreateSlaveNetwork(UdpClient client, Action<string,int,int> operationCb);
 
         #endregion
 
@@ -107,7 +107,7 @@ namespace NModbus
         /// <param name="streamResource"></param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusRtuTransport CreateRtuTransport(IStreamResource streamResource, Action<string> operationCb);
+        IModbusRtuTransport CreateRtuTransport(IStreamResource streamResource, Action<string,int,int> operationCb);
 
         /// <summary>
         /// Creates an Ascii Transport.
@@ -115,7 +115,7 @@ namespace NModbus
         /// <param name="streamResource"></param>
         /// <param name="operationCb"></param>
         /// <returns></returns>
-        IModbusAsciiTransport CreateAsciiTransport(IStreamResource streamResource, Action<string> operationCb);
+        IModbusAsciiTransport CreateAsciiTransport(IStreamResource streamResource, Action<string,int,int> operationCb);
 
         #endregion
 

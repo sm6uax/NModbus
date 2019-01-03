@@ -45,6 +45,5 @@ namespace NModbus.IO
         /// <param name="count">The number of bytes to write.</param>
         void Write(byte[] buffer, int offset, int count);
 
-        string GetClientIP();
     }
 }

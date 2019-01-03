@@ -13,8 +13,8 @@ namespace NModbus.Device
     {
         private readonly IModbusSerialTransport _serialTransport;
         private readonly IModbusFactory _modbusFactory;
-        public static Action<string> _OperationCb = null;
-        public ModbusSerialSlaveNetwork(IModbusSerialTransport transport, IModbusFactory modbusFactory, IModbusLogger logger, Action<string> OperationCb) 
+        public static Action<string,int,int> _OperationCb = null;
+        public ModbusSerialSlaveNetwork(IModbusSerialTransport transport, IModbusFactory modbusFactory, IModbusLogger logger, Action<string,int,int> OperationCb) 
             : base(transport, modbusFactory, logger)
         {
             _serialTransport = transport ?? throw new ArgumentNullException(nameof(transport));
